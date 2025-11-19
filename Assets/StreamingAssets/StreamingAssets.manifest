@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.2.6f1
+CRC: 8443864
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ardebugmenu
+      Dependencies: {}
+    Info_1:
+      Name: tartachocolate
+      Dependencies: {}
+    Info_2:
+      Name: helado
+      Dependencies: {}
+    Info_3:
+      Name: waffle
+      Dependencies: {}
+    Info_4:
+      Name: hamburguesa
+      Dependencies: {}
