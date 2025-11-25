@@ -1,0 +1,5 @@
+E:/VideojuegosEspecializacion/Proyectos/EscapeRoomAR/.utmp/RelWithDebInfo/246g6d66/arm64-v8a/CMakeFiles/edit_cache.dir
+E:/VideojuegosEspecializacion/Proyectos/EscapeRoomAR/.utmp/RelWithDebInfo/246g6d66/arm64-v8a/CMakeFiles/rebuild_cache.dir
+E:/VideojuegosEspecializacion/Proyectos/EscapeRoomAR/.utmp/RelWithDebInfo/246g6d66/arm64-v8a/GameActivity/CMakeFiles/game.dir
+E:/VideojuegosEspecializacion/Proyectos/EscapeRoomAR/.utmp/RelWithDebInfo/246g6d66/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+E:/VideojuegosEspecializacion/Proyectos/EscapeRoomAR/.utmp/RelWithDebInfo/246g6d66/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

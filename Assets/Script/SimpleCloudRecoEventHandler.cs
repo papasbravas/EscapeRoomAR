@@ -26,7 +26,7 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
     CloudRecoBehaviour mCloudRecoBehaviour;
     bool mIsScanning = false;
     string mTargetMetadata = "";
-
+    public GameLogic gameLogic;
     public ImageTargetBehaviour ImageTargetTemplate;
     private GameObject objetoAR;
 
@@ -162,7 +162,10 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
 
         //if (mTargetMetadata == nombreObjeto.text)
         //{
-            
+        if (gameLogic != null) // Asegurarse de que gameLogic no sea nulo
+        {
+            gameLogic.MostrarPista(datos.nombre); // Pasar el nombre del objeto detectado
+        }
         //}
 
         // Stop the scanning by disabling the behaviour
@@ -185,14 +188,14 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
         // so that user can restart cloud scanning
         if (!mIsScanning)
         {
-            if (GUI.Button(new Rect(100, 300, 200, 50), "Restart Scanning"))
+            if (GUI.Button(new Rect(100, 300, 200, 50), "Resetear Escaneo"))
             {
                 mCloudRecoBehaviour.enabled = true;
                 mTargetMetadata = "";
 
                 if (objetoAR != null)
                 {
-                    Destroy(objetoAR);
+                    Destroy(objetoAR); // Destruir el objeto AR existente
                     objetoAR = null;
                 }
             }
