@@ -151,32 +151,27 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
     //    }
     //}
     // Here we handle a cloud target recognition event
-    public void OnNewSearchResult(CloudRecoBehaviour.CloudRecoSearchResult cloudRecoSearchResult)
-    {
-        Metadatos datos;
-        datos = Metadatos.CreateFromJSON(cloudRecoSearchResult.MetaData);
-        StartCoroutine(GetAssetBundle(datos.URL));
-        // Store the target metadata
+    public void OnNewSearchResult(CloudRecoBehaviour.CloudRecoSearchResult cloudRecoSearchResult) {
+        Metadatos datos; 
+        datos = Metadatos.CreateFromJSON(cloudRecoSearchResult.MetaData); 
+        StartCoroutine(GetAssetBundle(datos.URL)); // Store the target metadata 
         //mTargetMetadata = cloudRecoSearchResult.MetaData;
-        mTargetMetadata = datos.nombre;
-
-        //if (mTargetMetadata == nombreObjeto.text)
-        //{
+        mTargetMetadata = datos.nombre; 
+        //if (mTargetMetadata == nombreObjeto.text) //{
         if (gameLogic != null) // Asegurarse de que gameLogic no sea nulo
-        {
+        { 
             gameLogic.MostrarPista(datos.nombre); // Pasar el nombre del objeto detectado
-        }
-        //}
-
-        // Stop the scanning by disabling the behaviour
-        mCloudRecoBehaviour.enabled = false;
+        } 
+        //} // Stop the scanning by disabling the behaviour
+        mCloudRecoBehaviour.enabled = false; 
         //FoodReconocer();
-        if (ImageTargetTemplate)
-        {
-            /* Enable the new result with the same ImageTargetBehaviour: */
-            mCloudRecoBehaviour.EnableObservers(cloudRecoSearchResult, ImageTargetTemplate.gameObject);
-        }
+        if (ImageTargetTemplate) 
+        { 
+            /* Enable the new result with the same ImageTargetBehaviour: */ 
+            mCloudRecoBehaviour.EnableObservers(cloudRecoSearchResult, ImageTargetTemplate.gameObject); 
+        } 
     }
+
 
     void OnGUI()
     {

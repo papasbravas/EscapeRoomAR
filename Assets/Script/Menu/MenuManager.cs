@@ -38,6 +38,15 @@ public class MenuManager : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        Debug.Log("Saliendo del juego...");
+
+        // Directiva de preprocesador
+        #if UNITY_EDITOR
+                // Si estamos en el editor de Unity, usamos el comando para detener el juego.
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                        // Si estamos en un ejecutable (Build), cerramos la aplicación.
+                        Application.Quit();
+        #endif
     }
 }

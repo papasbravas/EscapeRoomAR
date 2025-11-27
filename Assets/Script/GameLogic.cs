@@ -8,6 +8,7 @@ public class GameLogic : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI textoPista;
     public Image imagenPieza;
+    public GameObject victoria;
 
     private HashSet<string> objetosEncontrados = new HashSet<string>();
 
@@ -16,6 +17,19 @@ public class GameLogic : MonoBehaviour
 
     // Indica cuál se debe detectar ahora
     private int indiceActual = 0;
+
+
+    private void Start()
+    {
+        textoPista.gameObject.SetActive(false);
+        imagenPieza.gameObject.SetActive(false);
+        victoria.SetActive(false);
+    }
+
+    public bool EsElObjetoCorrecto(string nombreObjeto)
+    {
+        return nombreObjeto == ordenObjetos[indiceActual];
+    }
 
     public void MostrarPista(string nombreObjeto)
     {
@@ -50,6 +64,11 @@ public class GameLogic : MonoBehaviour
         indiceActual++;
 
         if (indiceActual >= ordenObjetos.Length)
-            indiceActual = ordenObjetos.Length - 1;
+        {  // Juego completado
+            indiceActual = ordenObjetos.Length - 1; // Mantener en el último índice
+            victoria.SetActive(true);
+            textoPista.gameObject.SetActive(false);
+            imagenPieza.gameObject.SetActive(false);
+        }
     }
 }
