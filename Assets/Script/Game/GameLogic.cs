@@ -14,7 +14,7 @@ public class GameLogic : MonoBehaviour
     public Sprite iconoHamburguesa;
     public Sprite iconoWaffle;
     public Sprite iconoTarta;
-    private HashSet<string> objetosEncontrados = new HashSet<string>();
+    private HashSet<string> objetosEncontrados = new HashSet<string>(); // Objetos ya encontrados
 
     // Orden correcto obligatorio
     private string[] ordenObjetos = { "hamburguesa", "waffle", "tartachocolate" };
@@ -23,68 +23,28 @@ public class GameLogic : MonoBehaviour
     private int indiceActual = 0;
 
 
-    private void Start()
+    private void Start() // Inicialización
     {
         textoPista.gameObject.SetActive(false);
         imagenPieza.gameObject.SetActive(false);
         victoria.SetActive(false);
     }
 
-    public bool EsElObjetoCorrecto(string nombreObjeto)
+    public bool EsElObjetoCorrecto(string nombreObjeto) // Verifica si el objeto es el correcto en el orden
     {
         return nombreObjeto == ordenObjetos[indiceActual];
     }
 
-    //public void MostrarPista(string nombreObjeto)
-    //{
-    //    if (nombreObjeto != ordenObjetos[indiceActual]) //  Si no es el objeto correcto
-    //    {
-    //        textoPista.text = "Este no es el objeto correcto todavía.";
-    //        textoPista.gameObject.SetActive(true);
-    //        return;
-    //    }
-
-    //    if (objetosEncontrados.Contains(nombreObjeto)) // Si ya se encontró antes
-    //    {
-    //        textoPista.text = "Ya encontraste este objeto.";
-    //        textoPista.gameObject.SetActive(true);
-    //        return;
-    //    }
-
-    //    objetosEncontrados.Add(nombreObjeto); // Marcar como encontrado
-
-    //    if (nombreObjeto == "hamburguesa") // Pistas específicas
-    //        textoPista.text = "PISTA: la hamburguesa...";
-    //    else if (nombreObjeto == "waffle")
-    //        textoPista.text = "PISTA: su forma...";
-    //    else if (nombreObjeto == "tartachocolate")
-    //        textoPista.text = "PISTA: lo dulce...";
-    //    else
-    //        textoPista.text = "Has encontrado: " + nombreObjeto;
-
-    //    textoPista.gameObject.SetActive(true);
-    //    imagenPieza.gameObject.SetActive(true);
-
-    //    indiceActual++;
-
-    //    if (indiceActual >= ordenObjetos.Length)
-    //    {  // Juego completado
-    //        indiceActual = ordenObjetos.Length - 1; // Mantener en el último índice
-    //        victoria.SetActive(true);
-    //        textoPista.gameObject.SetActive(false);
-    //        imagenPieza.gameObject.SetActive(false);
-    //    }
-    //}
-    public void MostrarPista(string nombreObjeto)
+    public void MostrarPista(string nombreObjeto) // Versión con entrega de herramientas
     {
-        if (nombreObjeto != ordenObjetos[indiceActual])
+        if (nombreObjeto != ordenObjetos[indiceActual]) //  Si no es el objeto correcto
         {
             textoPista.text = "Este no es el objeto correcto todavía.";
             textoPista.gameObject.SetActive(true);
             return;
         }
 
-        if (objetosEncontrados.Contains(nombreObjeto))
+        if (objetosEncontrados.Contains(nombreObjeto)) // Si ya se encontró antes
         {
             textoPista.text = "Ya encontraste este objeto.";
             textoPista.gameObject.SetActive(true);
@@ -93,7 +53,7 @@ public class GameLogic : MonoBehaviour
 
         objetosEncontrados.Add(nombreObjeto);
 
-        // 1. DAR UNA HERRAMIENTA SEGÚN EL OBJETO
+        // 1. ENTREGAR HERRAMIENTA CORRESPONDIENTE
         if (nombreObjeto == "hamburguesa")
         {
             textoPista.text = "PISTA: has obtenido...";
@@ -110,11 +70,11 @@ public class GameLogic : MonoBehaviour
             InventoryManager.Instance.AddTools("linterna", iconoTarta);
         }
 
-        // 2. Mostrar UI
+        // 2. MOSTRAR PISTA
         textoPista.gameObject.SetActive(true);
         imagenPieza.gameObject.SetActive(true);
 
-        // 3. Avanzar en orden
+        // 3. AVANZAR AL SIGUIENTE OBJETO
         indiceActual++;
 
         if (indiceActual >= ordenObjetos.Length)

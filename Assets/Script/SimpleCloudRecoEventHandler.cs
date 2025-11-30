@@ -190,7 +190,8 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
 
                 if (objetoAR != null)
                 {
-                    Destroy(objetoAR); // Destruir el objeto AR existente
+                    objetoAR.SetActive(false);
+                    //Destroy(objetoAR); // Destruir el objeto AR existente
                     objetoAR = null;
                 }
             }
