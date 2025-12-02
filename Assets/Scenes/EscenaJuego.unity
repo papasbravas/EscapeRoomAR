@@ -255,8 +255,6 @@ MonoBehaviour:
   imagenPieza: {fileID: 486122591}
   victoria: {fileID: 500723246}
   iconoHamburguesa: {fileID: 0}
-  iconoWaffle: {fileID: 0}
-  iconoTarta: {fileID: 0}
 --- !u!4 &228415847
 Transform:
   m_ObjectHideFlags: 0

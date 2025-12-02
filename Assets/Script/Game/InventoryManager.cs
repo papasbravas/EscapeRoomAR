@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -16,20 +17,22 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddTools(string nombre, Sprite icono) // Añadir herramienta al inventario
+    public void AddTools(string nombre, Sprite icono)
     {
-        if (herramientas.Contains(nombre))  // Evitar duplicados
+        if (herramientas.Contains(nombre))
         {
             Debug.Log("Ya tienes esta herramienta.");
             return;
         }
+
         herramientas.Add(nombre);
 
-        // Crear el icono del objeto en la interfaz
-        GameObject iconoJuego = Instantiate(iconPrefab, iconSlot); // Instanciar el prefab del icono
-        iconoJuego.GetComponent<UnityEngine.UI.Image>().sprite = icono; // Asignar el sprite del icono
-        Debug.Log("Herramienta " + nombre + " añadida al inventario."); // Mensaje de confirmación
+        GameObject iconoJuego = Instantiate(iconPrefab, iconSlot);
+        iconoJuego.GetComponent<Image>().sprite = icono;
+
+        Debug.Log("Herramienta " + nombre + " añadida al inventario.");
     }
+
 
     public bool HasTool(string nombre) // Verificar si el inventario contiene una herramienta
     {

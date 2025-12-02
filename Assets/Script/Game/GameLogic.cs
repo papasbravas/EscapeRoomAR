@@ -11,9 +11,9 @@ public class GameLogic : MonoBehaviour
     public GameObject victoria;
 
     [Header("Herramientas por objeto")]
-    public Sprite iconoHamburguesa;
-    public Sprite iconoWaffle;
-    public Sprite iconoTarta;
+    public Image iconoHamburguesa;
+    //public Sprite iconoWaffle;
+    //public Sprite iconoTarta;
     private HashSet<string> objetosEncontrados = new HashSet<string>(); // Objetos ya encontrados
 
     // Orden correcto obligatorio
@@ -56,18 +56,18 @@ public class GameLogic : MonoBehaviour
         // 1. ENTREGAR HERRAMIENTA CORRESPONDIENTE
         if (nombreObjeto == "hamburguesa")
         {
-            textoPista.text = "PISTA: has obtenido...";
-            InventoryManager.Instance.AddTools("llave", iconoHamburguesa);
+            textoPista.text = "PISTA: Algo dulce y cuadrado";
+            InventoryManager.Instance.AddTools("llave", iconoHamburguesa.sprite);
         }
         else if (nombreObjeto == "waffle")
         {
-            textoPista.text = "PISTA: has obtenido...";
-            InventoryManager.Instance.AddTools("lupa", iconoWaffle);
+            textoPista.text = "PISTA: Se ve en los cumpleaños";
+            //InventoryManager.Instance.AddTools("lupa", iconoWaffle);
         }
         else if (nombreObjeto == "tartachocolate")
         {
             textoPista.text = "PISTA: has obtenido...";
-            InventoryManager.Instance.AddTools("linterna", iconoTarta);
+            //InventoryManager.Instance.AddTools("linterna", iconoTarta);
         }
 
         // 2. MOSTRAR PISTA
