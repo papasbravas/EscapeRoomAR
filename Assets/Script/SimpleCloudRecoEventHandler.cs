@@ -30,35 +30,6 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
     public ImageTargetBehaviour ImageTargetTemplate;
     private GameObject objetoAR;
 
-    //[SerializeField] TextMeshProUGUI nombreObjeto;
-
-    //public void FoodReconocer()
-    //{
-     
-    //    switch (mTargetMetadata)
-    //    {
-    //        case "hamburguesa":
-    //            ImageTargetTemplate.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-    //            break;
-    //        case "tartachocolate":
-    //            ImageTargetTemplate.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-    //            break;
-    //        case "waffle":
-    //            ImageTargetTemplate.gameObject.transform.GetChild(2).gameObject.SetActive(true);
-    //            break;
-    //        case "helado":
-    //            ImageTargetTemplate.gameObject.transform.GetChild(3).gameObject.SetActive(true);
-    //            break;
-    //    }
-    //}
-
-    //public void FoodGen()
-    //{
-    //    string[] food = { "hamburguesa", "tartachocolate", "waffle" };
-
-    //    nombreObjeto.text = food[Random.Range(0, food.Length + 1)];
-    //}
-
     // Register cloud reco callbacks
     void Awake()
     {
@@ -106,73 +77,59 @@ public class SimpleCloudRecoEventHandler : MonoBehaviour
     }
     IEnumerator GetAssetBundle(string url)
     {
-        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url);
-        yield return www.SendWebRequest();
+        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url); //URL del AssetBundle
+        yield return www.SendWebRequest(); //Esperar a que se complete la descarga
 
-        if (www.result != UnityWebRequest.Result.Success)
+        if (www.result != UnityWebRequest.Result.Success) //Verificar si hubo un error
         {
             Debug.Log(www.error);
         }
         else
         {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-            string[] allAssetNames = bundle.GetAllAssetNames();
-            string gameObjectName = Path.GetFileNameWithoutExtension(allAssetNames[0]).ToString();
-            GameObject objectFound = bundle.LoadAsset<GameObject>(gameObjectName);
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www); //Obtener el AssetBundle descargado
+            string[] allAssetNames = bundle.GetAllAssetNames(); //Obtener los nombres de todos los assets en el bundle
+            string gameObjectName = Path.GetFileNameWithoutExtension(allAssetNames[0]).ToString(); //Asumir que solo hay un GameObject en el bundle
+            GameObject objectFound = bundle.LoadAsset<GameObject>(gameObjectName); //Cargar el GameObject desde el bundle
 
-            
             if (objetoAR != null)
             {
                 Destroy(objetoAR);
             }
-
-            
             objetoAR = Instantiate(objectFound, transform.position, transform.rotation);
         }
     }
 
-    //IEnumerator GetAssetBundle(string url)
-    //{
-    //    UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url);
-    //    yield return www.SendWebRequest();
-
-    //    if (www.result != UnityWebRequest.Result.Success)
-    //    {
-    //        Debug.Log(www.error);
-    //    }
-    //    else
-    //    {
-    //        AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-    //        string[] allAssetNames = bundle.GetAllAssetNames();
-    //        string gameObjectName = Path.GetFileNameWithoutExtension(allAssetNames[0]).ToString();
-    //        GameObject objectFound = bundle.LoadAsset(gameObjectName) as GameObject;
-    //        Instantiate(objectFound, transform.position, transform.rotation);
-
-    //    }
-    //}
     // Here we handle a cloud target recognition event
-    public void OnNewSearchResult(CloudRecoBehaviour.CloudRecoSearchResult cloudRecoSearchResult) {
-        Metadatos datos; 
-        datos = Metadatos.CreateFromJSON(cloudRecoSearchResult.MetaData); 
-        StartCoroutine(GetAssetBundle(datos.URL)); // Store the target metadata 
-        //mTargetMetadata = cloudRecoSearchResult.MetaData;
-        mTargetMetadata = datos.nombre; 
-        //if (mTargetMetadata == nombreObjeto.text) //{
-        if (gameLogic != null) // Asegurarse de que gameLogic no sea nulo
-        { 
-            gameLogic.MostrarPista(datos.nombre); // Pasar el nombre del objeto detectado
-        } 
-        //} // Stop the scanning by disabling the behaviour
-        mCloudRecoBehaviour.enabled = false; 
-        //FoodReconocer();
-        if (ImageTargetTemplate) 
-        { 
-            /* Enable the new result with the same ImageTargetBehaviour: */ 
-            mCloudRecoBehaviour.EnableObservers(cloudRecoSearchResult, ImageTargetTemplate.gameObject); 
-        } 
+    public void OnNewSearchResult(CloudRecoBehaviour.CloudRecoSearchResult cloudRecoSearchResult)
+    {
+        Metadatos datos = Metadatos.CreateFromJSON(cloudRecoSearchResult.MetaData);
+        mTargetMetadata = datos.nombre;
+
+        // Validar si el objeto reconocido es el correcto
+        if (gameLogic != null)
+        {
+            if (!gameLogic.EsElObjetoCorrecto(datos.nombre))
+            {
+                // Mostrar pista de error
+                gameLogic.MostrarPista(datos.nombre);
+                return;
+            }
+
+            // Mostrar pista de acierto
+            gameLogic.MostrarPista(datos.nombre);
+        }
+
+        // Descargar e instanciar el objeto AR desde el AssetBundle
+        StartCoroutine(GetAssetBundle(datos.URL));
+
+        // Desactivar escaneo
+        mCloudRecoBehaviour.enabled = false;
+
+        if (ImageTargetTemplate)
+        {
+            mCloudRecoBehaviour.EnableObservers(cloudRecoSearchResult, ImageTargetTemplate.gameObject);
+        }
     }
-
-
     void OnGUI()
     {
         // Display current 'scanning' status

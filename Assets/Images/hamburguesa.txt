@@ -1,0 +1,4 @@
+{		"nombre": "hamburguesa",
+		"URL": "https://drive.google.com/uc?export=download&id=1ZUOfzUkBPn45lywzf6mPabzqzWD9W-rQ",
+		"puntuacion": "2"
+}

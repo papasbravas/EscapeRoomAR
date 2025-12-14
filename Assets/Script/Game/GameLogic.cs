@@ -10,32 +10,27 @@ public class GameLogic : MonoBehaviour
     public Image imagenPieza;
     public GameObject victoria;
 
-    [Header("Herramientas por objeto")]
-    public Image iconoHamburguesa;
-    //public Sprite iconoWaffle;
-    //public Sprite iconoTarta;
-    private HashSet<string> objetosEncontrados = new HashSet<string>(); // Objetos ya encontrados
+    private HashSet<string> objetosEncontrados = new HashSet<string>();
 
     // Orden correcto obligatorio
-    private string[] ordenObjetos = { "hamburguesa", "waffle", "tartachocolate" };
+    private string[] ordenObjetos = { "hamburguesa", "waffle", "tartachocolate", "helado" };
 
     // Indica cuál se debe detectar ahora
     private int indiceActual = 0;
 
-
-    private void Start() // Inicialización
+    private void Start()
     {
         textoPista.gameObject.SetActive(false);
         imagenPieza.gameObject.SetActive(false);
         victoria.SetActive(false);
     }
 
-    public bool EsElObjetoCorrecto(string nombreObjeto) // Verifica si el objeto es el correcto en el orden
+    public bool EsElObjetoCorrecto(string nombreObjeto) // Verifica si es el objeto correcto en el orden
     {
         return nombreObjeto == ordenObjetos[indiceActual];
     }
 
-    public void MostrarPista(string nombreObjeto) // Versión con entrega de herramientas
+    public void MostrarPista(string nombreObjeto)
     {
         if (nombreObjeto != ordenObjetos[indiceActual]) //  Si no es el objeto correcto
         {
@@ -51,38 +46,31 @@ public class GameLogic : MonoBehaviour
             return;
         }
 
-        objetosEncontrados.Add(nombreObjeto);
+        objetosEncontrados.Add(nombreObjeto); // Marcar como encontrado
 
-        // 1. ENTREGAR HERRAMIENTA CORRESPONDIENTE
-        if (nombreObjeto == "hamburguesa")
-        {
-            textoPista.text = "PISTA: Algo dulce y cuadrado";
-            InventoryManager.Instance.AddTools("llave", iconoHamburguesa.sprite);
-        }
+        if (nombreObjeto == "hamburguesa") // Pistas específicas
+            textoPista.text = "PISTA: dulce y cuadrado";
         else if (nombreObjeto == "waffle")
-        {
-            textoPista.text = "PISTA: Se ve en los cumpleaños";
-            //InventoryManager.Instance.AddTools("lupa", iconoWaffle);
-        }
+            textoPista.text = "PISTA: amada en cumpleaños";
         else if (nombreObjeto == "tartachocolate")
-        {
-            textoPista.text = "PISTA: has obtenido...";
-            //InventoryManager.Instance.AddTools("linterna", iconoTarta);
-        }
+            textoPista.text = "PISTA: lo dulce lleva al postre";
+        else if (nombreObjeto == "helado")
+            textoPista.text = "PISTA: ";
+        else
+            textoPista.text = "Has encontrado: " + nombreObjeto;
 
-        // 2. MOSTRAR PISTA
         textoPista.gameObject.SetActive(true);
         imagenPieza.gameObject.SetActive(true);
 
-        // 3. AVANZAR AL SIGUIENTE OBJETO
         indiceActual++;
 
         if (indiceActual >= ordenObjetos.Length)
-        {
+        {  // Juego completado
+            indiceActual = ordenObjetos.Length - 1; // Mantener en el último índice
             victoria.SetActive(true);
             textoPista.gameObject.SetActive(false);
             imagenPieza.gameObject.SetActive(false);
         }
     }
-
 }
+

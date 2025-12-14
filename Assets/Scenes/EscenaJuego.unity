@@ -254,7 +254,6 @@ MonoBehaviour:
   textoPista: {fileID: 650090052}
   imagenPieza: {fileID: 486122591}
   victoria: {fileID: 500723246}
-  iconoHamburguesa: {fileID: 0}
 --- !u!4 &228415847
 Transform:
   m_ObjectHideFlags: 0
@@ -1198,7 +1197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1220546405
 MonoBehaviour:
   m_ObjectHideFlags: 0
