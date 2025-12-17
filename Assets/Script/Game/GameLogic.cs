@@ -48,21 +48,34 @@ public class GameLogic : MonoBehaviour
 
         objetosEncontrados.Add(nombreObjeto); // Marcar como encontrado
 
-        if (nombreObjeto == "hamburguesa") // Pistas específicas
+        if (nombreObjeto == "hamburguesa")
+        {
             textoPista.text = "PISTA: dulce y cuadrado";
+            indiceActual++;
+        } // Pistas específicas
         else if (nombreObjeto == "waffle")
+        {
             textoPista.text = "PISTA: amada en cumpleaños";
+            indiceActual++;
+        }
+            
         else if (nombreObjeto == "tartachocolate")
+        {
             textoPista.text = "PISTA: lo dulce lleva al postre";
+            indiceActual++;
+        }
+            
         else if (nombreObjeto == "helado")
-            textoPista.text = "PISTA: ";
+        {
+            indiceActual++;
+        }
         else
             textoPista.text = "Has encontrado: " + nombreObjeto;
 
         textoPista.gameObject.SetActive(true);
         imagenPieza.gameObject.SetActive(true);
 
-        indiceActual++;
+        //indiceActual++;
 
         if (indiceActual >= ordenObjetos.Length)
         {  // Juego completado
